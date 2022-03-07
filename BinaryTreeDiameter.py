@@ -1,6 +1,6 @@
 
 '''
-	Binary Tree Diameter:
+    Binary Tree Diameter:
     Given a binary tree, output the diameter (length of its longest path,
     regardless of if the path passes through the root)
 
