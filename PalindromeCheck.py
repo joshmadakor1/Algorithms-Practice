@@ -1,5 +1,5 @@
 '''
-	Palindrome Checm:
+	Palindrome Check:
 	Write a function that takes in a a string and determines whether it
     is a palindrome or not. (Reads the same forward vs backwards.
     For ex: "racecar")
@@ -17,4 +17,4 @@ def isPalindrome(string):
 		right -= 1
 	return True
 
-assert isPalindrome("abcdcba") == True, "Error. Expected output: True"
+assert isPalindrome("xcabcdcbacx") == True, "Error. Expected output: True"
