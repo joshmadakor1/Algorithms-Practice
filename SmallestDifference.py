@@ -5,7 +5,7 @@
     numbers.
 
     Time:  O(nlog(n) + mlog(m)) where n and m are the lengths of the arrays
-    Space: O(C)
+    Space: O(1)
 '''
 def smallestDifference(arrayOne, arrayTwo):
     arrayOne.sort()
