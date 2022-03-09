@@ -7,11 +7,11 @@
     possible speeds. Each blue shirt rider will be paired with a red
     shirt rider. Return the slowest or fastest summed speed of all the
     riders depends on if fastest is set to true or false
-    
+
     Time:  O(NlogN) + O(MlogM), where N and M = red/blue shirt riders
     Space: O(1)
 
-    Last Practice: 2022-03-09 09:02:57
+    Last Practice: 2022-03-09 09:06:33
 '''
 def tandemBicycle(redShirtSpeeds, blueShirtSpeeds, fastest):
     sumOfSpeeds = 0
