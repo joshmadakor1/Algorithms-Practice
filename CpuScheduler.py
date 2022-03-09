@@ -1,17 +1,28 @@
 '''
-    Tandem Bicycle
+    CPU Scheduler:
+    Given a CPU schedule with starting & ending time of
+    processes. This schedule is used by the server to run
+    the processes. When a new process comes into the scheduler,
+    it is first checked with this scheduler if it can be
+    accommodated or not.
 
-    Write a function that takes in two arrays, representing the speeds
-    of blue shirt and red shirt riders as well as an argument 'fastest'
-    that will determine whether you calculate the slowest or fastest
-    possible speeds. Each blue shirt rider will be paired with a red
-    shirt rider. Return the slowest or fastest summed speed of all the
-    riders depends on if fastest is set to true or false
+    You have to return a boolean value if the incoming process
+    can be accommodated into the process schedule or not. If it
+    can be accommodated, then the scheduler has to be updated with
+    the new process being a part of the schedule and if not then
+    return false.
 
-    Time:  O(NlogN) + O(MlogM), where N and M = red/blue shirt riders
-    Space: O(1)
+    Sample Input:
+    currentSchedule = [["10:00","11:00"],["14:00","16:00"],["23:00","23:30"]]
+    incomingProcesses = [["11:00","11:30"],["12:00","15:00"],["11:15","13:43"],["17:00","18:40"]]
 
-    Last Practice: 2022-03-09 09:06:33
+    Sample Output:
+    [True, False, False, True]
+
+    Time: O(N*M), where N is the current schedule, and M is the incoming processes array
+    Space: O(M), Where M is the result of the incoming process array
+
+    Last Practiced: 2022-03-09 12:47:00
 '''
 import datetime
 
@@ -44,6 +55,5 @@ def convertSchedulesToDatetime(schedules):
 
 currentSchedule = [["10:00","11:00"],["14:00","16:00"],["23:00","23:30"]]
 incomingProcesses = [["11:00","11:30"],["12:00","15:00"],["11:15","13:43"],["17:00","18:40"]]
-
 
 print(jobsThatCanBeScheduled(currentSchedule, incomingProcesses))
