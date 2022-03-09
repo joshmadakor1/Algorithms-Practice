@@ -1,6 +1,6 @@
 '''
     Binary Search:
-    Given a sorted array and target valueas input, perform a binary
+    Given a sorted array and target value as input, perform a binary
     search to find the index of the target value. Return the index
 
     Time:  O(log(N)), where N = number of nodes in array
