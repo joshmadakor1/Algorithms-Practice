@@ -1,6 +1,6 @@
 '''
     BubbleSort:
-    Given a sorted array as input, perform a BubbleSort and
+    Given an unsorted array as input, perform a BubbleSort and
     return the sorted array
 
     Average Time: O(N^2), where N = number of nodes in array
