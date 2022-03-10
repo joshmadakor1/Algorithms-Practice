@@ -6,7 +6,7 @@
     Time:  O(V+E), where V = Verticies, and E = Edges
     Space: O(2V) -> O(V), where V = Verticies in the auxiliary data structures
 
-    Last Practice: 2022-03-09 07:00:52
+    Last Practice: 2022-03-10 06:30:02
 '''
 def cycleInGraph(edges):
     visited = [False] * len(edges) # Keeps track of visited nodes globally

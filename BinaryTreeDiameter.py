@@ -6,6 +6,8 @@
 
     Time:  O(N)
     Space: O(N), (Alternate O(D), where D is the depth of binary tree)
+
+	Last Practiced: 2022-03-10 06:09:19
 '''
 class BinaryTree:
     def __init__(self, value, left=None, right=None):

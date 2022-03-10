@@ -7,8 +7,7 @@
     Best Time: O(N), where the array is already sorted
     Space: O(1)
 
-    
-    Last Practice: 2022-03-09 08:50:41
+    Last Practiced: 2022-03-09 08:50:41
 '''
 def bubbleSort(array):
     isSorted = False

@@ -6,6 +6,8 @@
 
 	Time:  O(N) - Linear (Alternate O(D), where D is the depth of the family tree)
 	Space: O(1) - Constant
+
+	Last Practiced: 2022-03-10 06:20:05
 '''
 class AncestralTree:
     def __init__(self, name):
