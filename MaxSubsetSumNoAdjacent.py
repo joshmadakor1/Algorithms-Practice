@@ -1,3 +1,13 @@
+'''
+    Max Subset Sum No Adjacent:
+    Given an array, what is the max number you can make (sum up)
+    with the elements of the array without using and adjacent elements?
+
+    Time:  O(N), where N is the number of nodes in the array
+    Space (Best): O(1), when you use static variables to hold max sums
+
+    Last Practiced: 2022-03-10 06:38:20
+'''
 def maxSubsetSumNoAdjacent(array):
     # If the input array is empty, 0 is the max value that can be returned
     if not len(array): return 0
