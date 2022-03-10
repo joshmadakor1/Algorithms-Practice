@@ -13,6 +13,8 @@
 
     Time:  O(width * height) => O(N), where N is the number of elements in the matrix
     Space: O(width * height) => O(N), where N is the number of elements in the matrix (aux matrix)
+
+    Last Practiced: 2022-03-10 06:58:20
 '''
 def riverSizes(matrix):
     visited = [[False for value in row] for row in matrix]
