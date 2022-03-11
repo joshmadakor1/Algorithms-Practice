@@ -1,12 +1,12 @@
 '''
     Min Height BST:
-    Wrute a function that takes in a sorted array and builds a binary search 
+    Write a function that takes in a sorted array and builds a binary search 
     tree. The function should MINIMIZE the height of the BST
 
     Time:  O(N), where N is the length of the input array
     Space: O(N), where N is the number of nodes in the BST
 
-    Last Practice: 2022-03-11 10:25:59
+    Last Practiced: 2022-03-11 10:25:59
 '''
 def minHeightBst(array):
 	mid = (len(array) - 1) // 2
