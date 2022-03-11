@@ -13,6 +13,8 @@
     ----------
     Time: O(N) - Linear
     Space: O(1) - Constant
+
+    Last Practiced: 2022-03-11 11:07:24
 '''
 class SuffixTrie:
     def __init__(self, string):
