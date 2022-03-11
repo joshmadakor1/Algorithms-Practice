@@ -1,18 +1,7 @@
-def nthFib(n):
-    memo = {}
-    return nthFibHelper(n, memo)
-
-def nthFibHelper(n, memo):
-    if n <= 2:
-        if n not in memo:
-            memo[n] = 1
-            return memo[n]
-    else:
-        if (n-1) not in memo:
-            memo[n-1] = nthFibHelper(n-1, memo)
-        if (n-2) not in memo:
-            memo[n-2] = nthFibHelper(n-2, memo)
-        return memo[n-1] + memo[n-2]
+from heapq import heapify
 
 
-print(nthFib(100))
+test = [5,3,6,8,4,2,6]
+heapify(test)
+print(test[0])
+print(test.pop(0))
