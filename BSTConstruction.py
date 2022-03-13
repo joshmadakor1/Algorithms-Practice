@@ -9,7 +9,7 @@
     Time (remove): Avg: O(logN), Worst: O(N)
     Space All: O(1) 
 
-    Last Practice: 2022-03-12 16:59:16
+    Last Practice: 2022-03-12 17:02:09
 '''
 class BST:
 	def __init__(self, value, left=None, right=None):
