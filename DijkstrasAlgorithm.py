@@ -12,7 +12,7 @@
     Time:  
     Space: 
     
-    Last Practice: 2022-03-13 13:40:06
+    Last Practice: 2022-03-13 14:36:58
 '''
 def dijkstrasAlgorithm(start, edges):
     numberOfVerticies = len(edges)
@@ -20,8 +20,8 @@ def dijkstrasAlgorithm(start, edges):
     minDistances[start] = 0
     visited = set()
     
-    while len(visited) < numberOfVerticies:
-        vertex, currentMinDistance = getVertexWithMinDistance(minDistances, visited)
+    while thereAreStillUnvisitedVerticies(visited,numberOfVerticies):
+        vertex, currentMinDistance = getVertexWithMinDistanceThatHasntBeenVisited(minDistances, visited)
         
         if currentMinDistance == float('inf'):
             break
@@ -38,9 +38,11 @@ def dijkstrasAlgorithm(start, edges):
             
             if newPathDistance < currentDestinationDistance:
                 minDistances[destination] = newPathDistance
+      # End of while
+      
     return list(map(lambda x: -1 if x == float('inf') else x, minDistances))
 
-def getVertexWithMinDistance(distances, visited):
+def getVertexWithMinDistanceThatHasntBeenVisited(distances, visited):
     currentMinDistance = float('inf')
     vertex = -1
     
@@ -51,6 +53,9 @@ def getVertexWithMinDistance(distances, visited):
             currentMinDistance = distance
             
     return vertex, currentMinDistance
+
+def thereAreStillUnvisitedVerticies(visited,numberOfVerticies):
+  return len(visited) < numberOfVerticies
 
 distances = [[[1,7]],[[2,6],[3,20],[4,3]],[[3,14]],[[4,2]],[],[]]
 start = 0
