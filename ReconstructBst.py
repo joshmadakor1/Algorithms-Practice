@@ -6,7 +6,7 @@
     Time: O(N), where N is the number of elements in the array
     Space: O(N), where N isi the numbef of elements in the array (unbalanced BST) 
 
-    Last Practice: 2022-03-12 17:02:09
+    Last Practice: 2022-03-13 07:36:36
 '''
 class BST:
 	def __init__(self, value, left=None, right=None):
