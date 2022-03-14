@@ -7,12 +7,11 @@
     Best Time: O(N), where the array is already sorted
     Space: O(1)
 
-    Last Practiced: 2022-03-09 08:50:41
+    Last Practiced: 2022-03-14 08:22:36
 '''
 def bubbleSort(array):
     isSorted = False
     index = 0
-    
     while not isSorted:
         isSorted = True
         for i in range(1, len(array) - index):
