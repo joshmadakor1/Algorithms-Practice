@@ -12,27 +12,25 @@
     Time:  
     Space: 
     
-    Last Practiced: 2022-03-14 07:56:51 
+    Last Practiced: 2022-03-14 08:12:34
 '''
-from calendar import c
-
-
-def dijkstrasAlgorithm(startIndex, edges):
+def dijkstrasAlgorithm(startVertex, edges):
     numberOfVerticies = len(edges)
     minDistanceFromStartToAllVerticies = [float('inf')] * numberOfVerticies
-    minDistanceFromStartToAllVerticies[startIndex] = 0
+    minDistanceFromStartToAllVerticies[startVertex] = 0
     visitedVerticies = set()
 
     while thereAreStillVerticiesToVisit(numberOfVerticies, len(visitedVerticies)):
-        currentVertexBeingVisited, distanceFromStartToCurrentVertexBeingVisited = getVertexWithMinDistanceFromStartThatHasntBeenVisitedYet(minDistanceFromStartToAllVerticies, visitedVerticies)
+        currentVertexBeingVisited, distanceFromStartToCurrentVertexBeingVisited = getVertexWithMinDistanceFromStartThatHasnBeenVisitedYet(minDistanceFromStartToAllVerticies, visitedVerticies)
+
         if distanceFromStartToCurrentVertexBeingVisited == float('inf'):
-            break # First time to discover unreachable node; algorithm finished
+            break # Algorithm finished due to next closest node being unreachable
+
         visitedVerticies.add(currentVertexBeingVisited)
 
         for edge in edges[currentVertexBeingVisited]:
             currentVertexNeighbor, distanceFromCurrentVertexToCurrentVertexNeighbor = edge
-            
-            if currentVertexNeighbor is visitedVerticies:
+            if currentVertexNeighbor in visitedVerticies:
                 continue
 
             newDistanceFromStartToCurrentVertexNeighbor = distanceFromStartToCurrentVertexBeingVisited + distanceFromCurrentVertexToCurrentVertexNeighbor
@@ -43,22 +41,23 @@ def dijkstrasAlgorithm(startIndex, edges):
 
     return list(map(lambda x: -1 if x == float('inf') else x, minDistanceFromStartToAllVerticies))
 
-
 def thereAreStillVerticiesToVisit(numberOfVerticies, numberOfVisitedVerticies):
     return numberOfVisitedVerticies < numberOfVerticies
 
-def getVertexWithMinDistanceFromStartThatHasntBeenVisitedYet(minDistanceFromStartToAllVerticies, visitedVerticies):
+def getVertexWithMinDistanceFromStartThatHasnBeenVisitedYet(minDistanceFromStartToAllVerticies, visitedVerticies):
     currentVertex = -1
-    currentDistanceFromStart = float('inf')
+    distanceFromStartToCurrentVertex = float('inf')
 
     for vertex, distance in enumerate(minDistanceFromStartToAllVerticies):
         if vertex in visitedVerticies:
             continue
-        if distance <= currentDistanceFromStart:
+        if distance <= distanceFromStartToCurrentVertex:
+            distanceFromStartToCurrentVertex = distance
             currentVertex = vertex
-            currentDistanceFromStart = distance
 
-    return currentVertex, currentDistanceFromStart
+    return currentVertex, distanceFromStartToCurrentVertex
+
+
 distances = [[[1,7]],[[2,6],[3,20],[4,3]],[[3,14]],[[4,2]],[],[]]
 start = 0
 
