@@ -12,7 +12,7 @@
     Time:  
     Space: 
     
-    Last Practiced: 2022-03-14 07:56:51
+    Last Practiced: 2022-03-14 07:56:51 
 '''
 from calendar import c
 
