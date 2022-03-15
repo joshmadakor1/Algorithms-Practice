@@ -7,7 +7,7 @@
 	Time:  O(N) - Linear (Alternate O(D), where D is the depth of the family tree)
 	Space: O(1) - Constant
 
-	Last Practiced: 2022-03-10 06:20:05
+	Last Practiced: 2022-03-15 08:14:50
 '''
 class AncestralTree:
     def __init__(self, name):
@@ -57,3 +57,42 @@ def moveDescendantsToSameLevel(distanceOne, distanceTwo, descendantOne, descenda
 			descendantOne = descendantOne.ancestor
 			distanceOne -= 1
 	return [descendantOne, descendantTwo]
+
+	'''
+	Other Implementation:
+	# This is an input class. Do not edit.
+class AncestralTree:
+    def __init__(self, name):
+        self.name = name
+        self.ancestor = None
+
+
+def getYoungestCommonAncestor(topAncestor, descendantOne, descendantTwo):
+    distance1 = getDistanceFromYoungestCommonAncestor(descendantOne, topAncestor)
+    distance2 = getDistanceFromYoungestCommonAncestor(descendantTwo, topAncestor)
+	descendantOne, descendantTwo = moveDescendantsToSameLevel(descendantOne, descendantTwo, distance1, distance2)
+	if descendantOne == descendantTwo: return descendantOne
+	while descendantOne.ancestor != descendantTwo.ancestor:
+		descendantOne = descendantOne.ancestor
+		descendantTwo = descendantTwo.ancestor
+	return descendantOne.ancestor
+
+def getDistanceFromYoungestCommonAncestor(descendant, topAncestor):
+	travelNode = descendant
+	distance = 0
+	while travelNode.ancestor is not None:
+		travelNode = travelNode.ancestor
+		distance += 1
+	return distance
+
+def moveDescendantsToSameLevel(descendantOne, descendantTwo, distance1, distance2):
+	while distance1 != distance2:
+		if distance1 > distance2:
+			descendantOne = descendantOne.ancestor
+			distance1 -= 1
+		else:
+			descendantTwo = descendantTwo.ancestor
+			distance2 -= 1
+	return descendantOne, descendantTwo
+			
+	'''
