@@ -14,49 +14,43 @@
     Time:  O(width * height) => O(N), where N is the number of elements in the matrix
     Space: O(width * height) => O(N), where N is the number of elements in the matrix (aux matrix)
 
-    Last Practiced: 2022-03-15 06:36:52
+    Last Practiced: 2022-03-15 06:46:11
 '''
 def riverSizes(matrix):
-    visitedNodes = [[False for value in row] for row in matrix]
-    riverSizes = []
-    
+    visited = [[False for value in row] for row in matrix]
+    sizes = []
     for row in range(len(matrix)):
         for col in range(len(matrix[row])):
-            if visitedNodes[row][col]:
-                continue
-            traverseRiver(row, col, matrix, visitedNodes, riverSizes)
-    
-    return riverSizes
-            
-def traverseRiver(row, col, matrix, visitedNodes, riverSizes):
+            if visited[row][col]: continue
+            traverseRiver(row, col, matrix, visited, sizes)
+    return sizes
+
+def traverseRiver(row, col, matrix, visited, sizes):
     currentRiverSize = 0
-    nodesToExplore = [[row, col]]
-    while len(nodesToExplore):
-        currentNode = nodesToExplore.pop()
+    nodesToVisit = [[row,col]]
+    while len(nodesToVisit):
+        currentNode = nodesToVisit.pop()
         currentRow = currentNode[0]
         currentCol = currentNode[1]
-        if visitedNodes[currentRow][currentCol]:
-            continue
-        visitedNodes[currentRow][currentCol] = True
-        if matrix[currentRow][currentCol] == 0:
-            continue
+        if visited[currentRow][currentCol]: continue
+        visited[currentRow][currentCol] = True
+        if matrix[currentRow][currentCol] == 0: continue
         currentRiverSize += 1
-        unvisitedNodes = getNeighborNodes(currentRow, currentCol, matrix, visitedNodes)
-        for unvisitedNode in unvisitedNodes:
-            nodesToExplore.append(unvisitedNode)
+        neighborsToVisit = getNeighbors(currentRow, currentCol, matrix, visited)
+        for neighbor in neighborsToVisit:
+            nodesToVisit.append(neighbor)
     if currentRiverSize > 0:
-        riverSizes.append(currentRiverSize)
+        sizes.append(currentRiverSize)
+
+def getNeighbors(row, col, matrix, visited):
+    unvisitedNeighbors = []
+    if row > 0 and not visited[row - 1][col]:
+        unvisitedNeighbors.append([row-1,col])
+    if row < len(matrix) - 1 and not visited[row+1][col]:
+        unvisitedNeighbors.append([row+1,col])
+    if col > 0 and not visited[row][col-1]:
+        unvisitedNeighbors.append([row,col-1])
+    if col < len(matrix[row]) - 1 and not visited[row][col+1]:
+        unvisitedNeighbors.append([row, col+1])
     
-def getNeighborNodes(row, col, matrix, visitedNodes):
-    neighbors = []
-    
-    if row > 0 and not visitedNodes[row-1][col]:
-        neighbors.append([row-1,col])
-    if row < len(matrix) - 1 and not visitedNodes[row+1][col]:
-        neighbors.append([row+1,col])
-    if col > 0 and not visitedNodes[row][col-1]:
-        neighbors.append([row,col-1])
-    if col < len(matrix[0]) - 1 and not visitedNodes[row][col+1]:
-        neighbors.append([row,col+1])
-    
-    return neighbors
+    return unvisitedNeighbors
