@@ -14,43 +14,47 @@
     Time:  O(width * height) => O(N), where N is the number of elements in the matrix
     Space: O(width * height) => O(N), where N is the number of elements in the matrix (aux matrix)
 
-    Last Practiced: 2022-03-15 06:46:11
+    Last Practiced: 2022-03-16 08:23:51
 '''
 def riverSizes(matrix):
+    riverSizes = []
     visited = [[False for value in row] for row in matrix]
-    sizes = []
     for row in range(len(matrix)):
         for col in range(len(matrix[row])):
             if visited[row][col]: continue
-            traverseRiver(row, col, matrix, visited, sizes)
-    return sizes
-
-def traverseRiver(row, col, matrix, visited, sizes):
+            else: traverseRiverNodes(row, col, matrix, visited, riverSizes)
+    return riverSizes
+    
+def traverseRiverNodes(row, col, matrix, visited, riverSizes):
     currentRiverSize = 0
     nodesToVisit = [[row,col]]
     while len(nodesToVisit):
         currentNode = nodesToVisit.pop()
         currentRow = currentNode[0]
         currentCol = currentNode[1]
+        
         if visited[currentRow][currentCol]: continue
         visited[currentRow][currentCol] = True
         if matrix[currentRow][currentCol] == 0: continue
         currentRiverSize += 1
-        neighborsToVisit = getNeighbors(currentRow, currentCol, matrix, visited)
-        for neighbor in neighborsToVisit:
+        
+        neighbors = getNeighbors(currentRow, currentCol, matrix, visited)
+        for neighbor in neighbors:
             nodesToVisit.append(neighbor)
-    if currentRiverSize > 0:
-        sizes.append(currentRiverSize)
+            
+    if currentRiverSize > 0: riverSizes.append(currentRiverSize)
 
 def getNeighbors(row, col, matrix, visited):
-    unvisitedNeighbors = []
-    if row > 0 and not visited[row - 1][col]:
-        unvisitedNeighbors.append([row-1,col])
-    if row < len(matrix) - 1 and not visited[row+1][col]:
-        unvisitedNeighbors.append([row+1,col])
-    if col > 0 and not visited[row][col-1]:
-        unvisitedNeighbors.append([row,col-1])
-    if col < len(matrix[row]) - 1 and not visited[row][col+1]:
-        unvisitedNeighbors.append([row, col+1])
+    nodesToVisit = []
     
-    return unvisitedNeighbors
+    if row > 0 and not visited[row-1][col]:
+        nodesToVisit.append([row-1, col])
+    if row < len(matrix) - 1 and not visited[row+1][col]:
+        nodesToVisit.append([row+1, col])
+    if col > 0 and not visited[row][col-1]:
+        nodesToVisit.append([row,col-1])
+    if col < len(matrix[row]) -1 and not visited[row][col+1]:
+        nodesToVisit.append([row,col+1])
+    
+    return nodesToVisit
+    
