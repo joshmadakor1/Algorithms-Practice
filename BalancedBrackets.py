@@ -9,23 +9,24 @@
 
     Time:  O(N), The length of the input array is iterated once
     Space: O(N), The stack holding the characters
+
+	Last Practiced: 2022-03-16 07:59:08
 '''
 def balancedBrackets(string):
-	bracketPairs = {'}':'{', ']':'[', ')':'('}
-	openingBrackets = "{[("
-	closingBrackets = "}])"
-	stack = []
-	
-	for character in string:
-		if len(stack) == 0 and character in closingBrackets:
-			return False
-		if character in openingBrackets:
-			stack.append(character)
-		elif character in closingBrackets:
-			if bracketPairs[character] == stack[-1]:
-				stack.pop()
-			else:
-				return False
-	if len(stack) == 0:
-		return True
-	return False
+    leftBrackets = '({['
+    rightBrackets = ']})'
+    bracketMap = {')':'(', '}': '{', ']':'['}
+    stack = []
+    
+    for char in string:
+        if char in rightBrackets:
+            if stackIsEmpty(stack): return False
+            if bracketMap[char] == stack[-1]: stack.pop()
+            else: return False
+        if char in leftBrackets:
+            stack.append(char)
+    return stackIsEmpty(stack)
+        
+        
+def stackIsEmpty(stack):
+    return len(stack) == 0
