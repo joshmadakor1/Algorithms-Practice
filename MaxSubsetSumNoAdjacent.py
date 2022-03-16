@@ -6,7 +6,7 @@
     Time:  O(N), where N is the number of nodes in the array
     Space (Best): O(1), when you use static variables to hold max sums
 
-    Last Practiced: 2022-03-15 08:03:43
+    Last Practiced: 2022-03-16 08:33:54
 '''
 def maxSubsetSumNoAdjacent(array):
     # If the input array is empty, 0 is the max value that can be returned
@@ -27,3 +27,21 @@ def maxSubsetSumNoAdjacent(array):
     
     # Return the final index of maxSums (largest possible non-adjacent sum)
     return maxSums[len(maxSums) - 1]
+
+'''
+    Optimal:
+    Time: O(N)
+    Space: O(1)
+    
+    def maxSubsetSumNoAdjacent(array):
+    if len(array) == 0: return 0
+    if len(array) == 1: return array[0]
+    second = array[0]
+    first = max(array[0], array[1])
+    for i in range(2, len(array)):
+        current = max(first, second + array[i])
+        second = first
+        first = current
+    return first
+    
+'''
