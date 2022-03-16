@@ -9,22 +9,29 @@
     Last Practice: 2022-03-15 08:31:02
 '''
 def cycleInGraph(edges):
-    vertexHasBeenVisited = [False] * len(edges)
-    vertexIsInStack = [False] * len(edges)
+    visited = [False] * len(edges)
+    stack = [False] * len(edges)
+    
     for vertex in range(len(edges)):
-        if vertexHasBeenVisited[vertex]: continue
-        if vertexIsInCycle(vertex, edges, vertexHasBeenVisited, vertexIsInStack): return True
+        if visited[vertex]: continue
+        if vertexIsInCycle(vertex, edges, visited, stack): return True
     return False
 
-def vertexIsInCycle(vertex, edges, vertexHasBeenVisited, vertexIsInStack):
-    vertexHasBeenVisited[vertex] = True
-    vertexIsInStack[vertex] = True
+def vertexIsInCycle(vertex, edges, visited, stack):
+    stack[vertex] = True
+    visited[vertex] = True
     neighbors = edges[vertex]
     for neighbor in neighbors:
-        if vertexHasBeenVisited[neighbor] and vertexIsInStack[neighbor]: return True
-        if vertexIsInCycle(neighbor, edges, vertexHasBeenVisited, vertexIsInStack): return True
-    vertexIsInStack[vertex] = False
+        if visited[neighbor]:
+            if stack[neighbor]: return True
+            else: continue
+        else:
+            isInCycle = vertexIsInCycle(neighbor, edges, visited, stack)
+            if isInCycle: return True
+            else: continue
+    stack[vertex] = False
     return False
+
 
 edges = [ [1, 3], [2, 3, 4],[0],[],[2, 5],[]]
 
