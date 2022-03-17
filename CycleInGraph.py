@@ -6,7 +6,7 @@
     Time:  O(V+E), where V = Verticies, and E = Edges
     Space: O(2V) -> O(V), where V = Verticies in the auxiliary data structures
 
-    Last Practice: 2022-03-16 07:34:20
+    Last Practice: 2022-03-17 07:50:09
 '''
 def cycleInGraph(edges):
     visited = [False] * len(edges)
@@ -14,23 +14,22 @@ def cycleInGraph(edges):
     
     for vertex in range(len(edges)):
         if visited[vertex]: continue
-        if vertexIsInCycle(vertex, edges, visited, stack): return True
+        if isInCycle(vertex, edges, visited, stack): return True
     return False
 
-def vertexIsInCycle(vertex, edges, visited, stack):
+def isInCycle(vertex, edges, visited, stack):
     stack[vertex] = True
     visited[vertex] = True
     neighbors = edges[vertex]
     for neighbor in neighbors:
         if visited[neighbor]:
             if stack[neighbor]: return True
-            else: continue
         else:
-            isInCycle = vertexIsInCycle(neighbor, edges, visited, stack)
-            if isInCycle: return True
-            else: continue
+            if isInCycle(neighbor, edges, visited, stack): return True
+        
     stack[vertex] = False
     return False
+
 
 
 edges = [ [1, 3], [2, 3, 4],[0],[],[2, 5],[]]
