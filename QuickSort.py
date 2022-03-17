@@ -6,15 +6,12 @@
     Worst Time: O(N^2)
     Space: O(NlogN) due to the recursive call stack 
 
-    Last Practice: 2022-03-09 07:16:35
+    Last Practice: 2022-03-17 08:00:54
 '''
-def quickSort(array):
-    quickSortHelper(array, 0, len(array) - 1)
-    return array
-
-def quickSortHelper(array, start, end):
-    if start > end:
-        return
+def quickSort(array, start=None, end=None):
+    if start is None and end is None:
+        start, end = 0, len(array) - 1
+    elif start > end: return
     
     pivot = start
     left = start + 1
@@ -27,18 +24,18 @@ def quickSortHelper(array, start, end):
             left += 1
         if array[right] >= array[pivot]:
             right -= 1
-            
     swap(array, right, pivot)
     
     leftSubArrayIsSmaller = (right - 1 - start) < (end - (right + 1))
     
     if leftSubArrayIsSmaller:
-        quickSortHelper(array, start, right - 1)
-        quickSortHelper(array, right + 1, end)
+        quickSort(array, start, right - 1)
+        quickSort(array, right + 1, end)
     else:
-        quickSortHelper(array, right + 1, end)
-        quickSortHelper(array, start, right - 1)
+        quickSort(array, right + 1, end)
+        quickSort(array, start, right - 1)
+    
+    return array
             
 def swap(array, left, right):
     array[left], array[right] = array[right], array[left]
-    
