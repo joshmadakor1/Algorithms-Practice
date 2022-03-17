@@ -7,15 +7,12 @@
     Best Time: O(N), when the array is already sorted
     Space: O(1)
 
-    Last Practiced: 2022-03-10 07:49:51
+    Last Practiced: 2022-03-17 08:18:06
 '''
 def insertionSort(array):
     for i in range(1, len(array)):
-        count = i
-        while count > 0 and array[count] < array[count - 1]:
-            swap(array, count, count - 1)
-            count -= 1
+        j = i
+        while j > 0 and array[j] < array[j-1]:
+            array[j], array[j-1] = array[j-1], array[j]
+            j -= 1
     return array
-            
-def swap(array, left, right):
-    array[left], array[right] = array[right], array[left]
