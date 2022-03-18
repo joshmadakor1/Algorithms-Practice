@@ -1,8 +1,15 @@
+'''
+    Sort a LinkedList
+
+    Time: O(N^2) where N is the number of nodes in the linkedlist
+    Space: O(1)
+
+    Last Practiced: 2022-03-17 22:09:48
+'''
 class LinkedList:
     def __init__(self, value):
         self.value = value
         self.next = None
-
 
 def sort(linkedList):
     isSorted = False
@@ -15,7 +22,8 @@ def sort(linkedList):
                 isSorted = False
             currentNode = currentNode.next
     print(linkedList)
-            
+
+# Build a LinkedList
 linkedList = LinkedList(10)
 nextNode = linkedList
 for i in reversed(range(10)):
