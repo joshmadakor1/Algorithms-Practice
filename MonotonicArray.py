@@ -11,12 +11,11 @@
     Time:  O(N), The length of the input array is iterated once
     Space: O(1)
 
-    Last Practiced: 2022-03-13 08:38:00
+    Last Practiced: 2022-03-18 06:22:27
 '''
 def isMonotonic(array):
-    if len(array) <= 2: return True
+    if len(array) < 3: return True
     currentDirection = array[1] - array[0]
-    
     for i in range(2, len(array)):
         if currentDirection == 0:
             currentDirection = array[i] - array[i-1]
