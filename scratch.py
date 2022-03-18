@@ -1,37 +1,31 @@
 def dijkstrasAlgorithm(start, edges):
-    numberOfVerticies = len(edges)
-    minDistanceFromStart = [float('inf')] * numberOfVerticies
-    minDistanceFromStart[start] = 0
+    numberOfVertices = len(edges)
+    minDistancesFromStart = [float('inf')] * numberOfVertices
+    minDistancesFromStart[start] = 0
     visited = set()
 
-    while thereAreStillUnvisitedNodes(numberOfVerticies, len(visited)):
-        currentVertex, currentVertexDistancFromStart = getNextClosestUnvistedNode(minDistanceFromStart, visited)
-        if currentVertexDistancFromStart == float('inf'): break #algorithm finished; next closest node is not reachable
+    while len(visited) < numberOfVertices:
+        currentVertex, currentVertextDistanceFromStart = getNextClosestUnvisitedVertex(minDistancesFromStart, visited)
         visited.add(currentVertex)
         for edge in edges[currentVertex]:
-            neighborVertex, distanceFromCurrentVertexToNeighborVertex = edge
-            if neighborVertex in visited: continue
-            newDistanceFromStartToNeighbor = currentVertexDistancFromStart + distanceFromCurrentVertexToNeighborVertex
-            currentDistanceFromStartToNeighbor = minDistanceFromStart[neighborVertex]
-            if newDistanceFromStartToNeighbor < currentDistanceFromStartToNeighbor:
-                minDistanceFromStart[neighborVertex] = newDistanceFromStartToNeighbor
-    return list(map(lambda x: -1 if x == float('inf') else x, minDistanceFromStart))
+            currentVertexNeighbor, currentVertexNeighborDistanceFromCurrentVertex = edge
+            if currentVertexNeighbor in visited: continue
 
-def getNextClosestUnvistedNode(minDistancesFromStart, visited):
+            newDistanceFromStartToCurrentVertextNeighbor = currentVertextDistanceFromStart + currentVertexNeighborDistanceFromCurrentVertex
+            currentDistanceFromStartToCurrentVertexNeighbor = minDistancesFromStart[currentVertexNeighbor]
+            
+            if newDistanceFromStartToCurrentVertextNeighbor < currentDistanceFromStartToCurrentVertexNeighbor:
+                minDistancesFromStart[currentVertexNeighbor] = newDistanceFromStartToCurrentVertextNeighbor
+
+    return list(map(lambda x: -1 if x == float('inf') else x, minDistancesFromStart))
+
+
+def getNextClosestUnvisitedVertex(minDistancesFromStart, visited):
     nextVertex = -1
-    minDistanceToNextVertex = float('inf')
-
-    for candidateVertext, distance in enumerate(minDistancesFromStart):
-        if candidateVertext in visited: continue
-        if distance <= minDistanceToNextVertex:
-            nextVertex = candidateVertext
-            minDistanceToNextVertex = distance
-    return [nextVertex, minDistanceToNextVertex]
-
-def thereAreStillUnvisitedNodes(totalNodes, visitedNodes):
-    return visitedNodes < totalNodes
-
-distances = [[[1,7]],[[2,6],[3,20],[4,3]],[[3,14]],[[4,2]],[],[]]
-start = 0
-
-print(dijkstrasAlgorithm(start, distances))
+    nextVertexDistanceFromStart = float('inf')
+    for vertex, distance in enumerate(minDistancesFromStart):
+        if vertex in visited: continue
+        if distance <= nextVertexDistanceFromStart:
+            nextVertex = vertex
+            nextVertexDistanceFromStart = distance
+    return [nextVertex,nextVertexDistanceFromStart]

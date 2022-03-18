@@ -12,7 +12,7 @@
     Time:  
     Space: 
     
-    Last Practiced: 2022-03-18 08:19:28
+    Last Practiced: 2022-03-18 08:45:23
 '''
 def dijkstrasAlgorithm(start, edges):
     numberOfVerticies = len(edges)
