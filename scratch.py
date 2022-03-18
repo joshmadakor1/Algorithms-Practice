@@ -1,26 +1,37 @@
-class LinkedList:
-    def __init__(self, value):
-        self.value = value
-        self.next = None
+from math import dist
 
 
-def sort(linkedList):
-    isSorted = False
-    while not isSorted:
-        isSorted = True
-        currentNode = linkedList
-        while currentNode.next is not None:
-            if currentNode.value > currentNode.next.value:
-                currentNode.value, currentNode.next.value = currentNode.next.value, currentNode.value
-                isSorted = False
-            currentNode = currentNode.next
-    print(linkedList)
-            
-linkedList = LinkedList(10)
-nextNode = linkedList
-for i in reversed(range(10)):
-    nextNode.next = LinkedList(i)
-    nextNode = nextNode.next
+def dijkstrasAlgorithm(startVertex, edges):
+    numberOfVerticies = len(edges)
+    minDistanceFromStartToOtherVerticies = [float('inf')] * numberOfVerticies
+    minDistanceFromStartToOtherVerticies[startVertex] = 0
+    visitedVerticies = set()
 
-print(linkedList)
-sort(linkedList)
+    while thereAreStillOtherVerticiesToVisit(numberOfVerticies, len(visitedVerticies)):
+        currentVertex, currentVertexDistanceFromStart = getVertexWithSmallestDistanceFromStartThatHasntBeenVisitedYet(minDistanceFromStartToOtherVerticies, visitedVerticies)
+        if currentVertexDistanceFromStart == float('inf'):
+            break # Next nearest node is unreachable
+        visitedVerticies.add(currentVertex)
+
+        for edge in edges[currentVertex]:
+            currentVertexNeighbor, distanceFromCurrentVertextToCurrentVertexNeighbor = edge
+            if currentVertexNeighbor in visitedVerticies: continue
+
+            newDistanceFromStartToCurrentVertexNeighbor = currentVertexDistanceFromStart + distanceFromCurrentVertextToCurrentVertexNeighbor
+            currentDistanceFromStartToCurrentVertexNeighbor = minDistanceFromStartToOtherVerticies[currentVertexNeighbor]
+            if newDistanceFromStartToCurrentVertexNeighbor < currentDistanceFromStartToCurrentVertexNeighbor:
+                minDistanceFromStartToOtherVerticies[currentVertexNeighbor] = newDistanceFromStartToCurrentVertexNeighbor
+    return list(map(lambda x: -1 if x == float('inf') else x, minDistanceFromStartToOtherVerticies))
+
+def thereAreStillOtherVerticiesToVisit(numberOfTotalVerticies, numberOfVisitedVerticies):
+    return numberOfVisitedVerticies < numberOfTotalVerticies
+
+def getVertexWithSmallestDistanceFromStartThatHasntBeenVisitedYet(minDistanceFromStartToOtherVerticies, visited):
+    minDistance = float('inf')
+    vertex = -1
+    for candidateVertex, distance in enumerate(minDistanceFromStartToOtherVerticies):
+        if candidateVertex in visited: continue
+        if distance <= minDistance:
+            vertex = candidateVertex
+            minDistance = distance
+    return [vertex, minDistance]
