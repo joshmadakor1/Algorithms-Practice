@@ -30,6 +30,18 @@ def maximumProductSubarray2(array):
         resultMax = max(currentMax, currentMin, resultMax)
 
     return max(currentMax, resultMax)
-    
 
-print(maximumProductSubarray2([2,3,-2,4]))
+def maxProdSubArray(array):
+    currentMax, currentMin, maxResult = 1,1,1
+    for element in array:
+        if element == 0:
+            currentMax, currentMin = 1,1
+            continue
+        oldMax = currentMax
+        currentMax = max(currentMax * element, currentMin * element, element)
+        currentMin = min(oldMax * element, currentMin * element, element)
+        maxResult = max(maxResult, currentMax)
+    return max(maxResult, currentMax)
+
+
+print(maxProdSubArray([2,3,-2,4]))
