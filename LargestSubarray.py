@@ -3,6 +3,8 @@
 
     Time: O(N)
     Space: O(1)
+
+    Last Practiced: 2022-03-19 09:02:23
 '''
 def largesSubarray(array):
     currentLargest = float('-inf')
