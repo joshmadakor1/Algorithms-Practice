@@ -1,31 +1,46 @@
-def dijkstrasAlgorithm(start, edges):
-    numberOfVertices = len(edges)
-    minDistancesFromStart = [float('inf')] * numberOfVertices
-    minDistancesFromStart[start] = 0
-    visited = set()
 
-    while len(visited) < numberOfVertices:
-        currentVertex, currentVertextDistanceFromStart = getNextClosestUnvisitedVertex(minDistancesFromStart, visited)
-        visited.add(currentVertex)
-        for edge in edges[currentVertex]:
-            currentVertexNeighbor, currentVertexNeighborDistanceFromCurrentVertex = edge
-            if currentVertexNeighbor in visited: continue
+# Returns true if the
+# there is a subarray
+# of arr[] with sum
+# equal to 'sum' 
+# otherwise returns
+# false. Also, prints
+# the result 
 
-            newDistanceFromStartToCurrentVertextNeighbor = currentVertextDistanceFromStart + currentVertexNeighborDistanceFromCurrentVertex
-            currentDistanceFromStartToCurrentVertexNeighbor = minDistancesFromStart[currentVertexNeighbor]
+
+def subArraySum(arr, n, sum_):
+    count = 0
+    # Pick a starting 
+    # point
+    for i in range(n):
+        curr_sum = arr[i]
+    
+        # try all subarrays
+        # starting with 'i'
+        j = i + 1
+        while j <= n:
+            count +=1
+            print("count,", count)
+            if curr_sum == sum_:
+                print ("Sum found between")
+                print("indexes % d and % d"%( i, j-1))
+                
+                return 1
+                
+            if curr_sum > sum_ or j == n:
+                break
             
-            if newDistanceFromStartToCurrentVertextNeighbor < currentDistanceFromStartToCurrentVertexNeighbor:
-                minDistancesFromStart[currentVertexNeighbor] = newDistanceFromStartToCurrentVertextNeighbor
+            curr_sum = curr_sum + arr[j]
+            j += 1
 
-    return list(map(lambda x: -1 if x == float('inf') else x, minDistancesFromStart))
+    print ("No subarray found")
+    return 0
 
+# Driver program 
+arr = [2, 4, 8, 5, 9, 10, 15, 99]
+n = len(arr)
+sum_ = 23
 
-def getNextClosestUnvisitedVertex(minDistancesFromStart, visited):
-    nextVertex = -1
-    nextVertexDistanceFromStart = float('inf')
-    for vertex, distance in enumerate(minDistancesFromStart):
-        if vertex in visited: continue
-        if distance <= nextVertexDistanceFromStart:
-            nextVertex = vertex
-            nextVertexDistanceFromStart = distance
-    return [nextVertex,nextVertexDistanceFromStart]
+subArraySum(arr, n, sum_)
+
+# This code is Contributed by shreyanshi_arun.
