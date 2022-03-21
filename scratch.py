@@ -1,38 +1,25 @@
-def dijkstrasAlgorithm(start, edges):
-	numberOfEdges = len(edges)
-	minDistanceFromStartToEdges = [float('inf')] * numberOfEdges
-	minDistanceFromStartToEdges[start] = 0
-	visited = set()
-	
-	while len(visited) < numberOfEdges:
-		currentVertex, distanceFromStartToCurrentVertex = getNearestUnvisitedVertex(minDistanceFromStartToEdges, visited)
-		if distanceFromStartToCurrentVertex == float('inf'): break # next nearest vertex is not reachable
-		visited.add(currentVertex)
-		for edge in edges[currentVertex]:
-			neighborVertex, distanceFromCurrentVertexToNeighborVertex = edge
-			if neighborVertex in visited: continue
-			
-			newDistanceFromStartToNeighborVertex = distanceFromStartToCurrentVertex + distanceFromCurrentVertexToNeighborVertex
-			currentDistanceFromStartToNeighborVertex = minDistanceFromStartToEdges[neighborVertex]
-			
-			if newDistanceFromStartToNeighborVertex < currentDistanceFromStartToNeighborVertex:
-				minDistanceFromStartToEdges[neighborVertex] = newDistanceFromStartToNeighborVertex
-	
-	return list(map(lambda x: -1 if x == float('inf') else x, minDistanceFromStartToEdges))
-		
-def getNearestUnvisitedVertex(minDistanceFromStartToEdges, visited):
-	candidateVertex = None
-	candidateVertexDistanceFromStart = float('inf')
-	
-	for vertex, distance in enumerate(minDistanceFromStartToEdges):
-		if vertex in visited: continue
-		if distance <= candidateVertexDistanceFromStart:
-			candidateVertex = vertex
-			candidateVertexDistanceFromStart = distance
-			
-	return [candidateVertexDistanceFromStart, distance]
+def waterArea(heights):
+    largestLeft = [0] * len(heights)
+    largestRight = [0] * len(heights)
+    
+    largestSoFar = 0
+    for i in range(len(heights)):
+        largestLeft [i]= largestSoFar
+        largestSoFar = max(heights[i], largestSoFar)
+    
+    largestSoFar = 0
+    for i in reversed(range(len(heights))):
+        largestRight[i] = largestSoFar
+        largestSoFar = max(heights[i], largestSoFar)
+        
+    totalArea = 0
 
-distances = [[[1,7]],[[2,6],[3,20],[4,3]],[[3,14]],[[4,2]],[],[]]
-start = 0
+    for i in range(len(heights)):
+        walls = min(largestLeft[i], largestRight[i])
+        if heights[i] < walls:
+            totalArea += walls - heights[i]
 
-print(dijkstrasAlgorithm(start, distances))
+    return totalArea
+
+    
+waterArea([0, 8, 0, 0, 5, 0, 0, 10, 0, 0, 1, 1, 0, 3])
