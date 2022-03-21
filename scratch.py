@@ -1,17 +1,38 @@
-resultValue = 0  # Create a variable called "resultValue" and set it to 0
-firstValue = 0   # Create a variable called "firstValue" and set it to 0
-secondValue = 0  # Create a variable called "secondValue" and set it to 0
+def dijkstrasAlgorithm(start, edges):
+	numberOfEdges = len(edges)
+	minDistanceFromStartToEdges = [float('inf')] * numberOfEdges
+	minDistanceFromStartToEdges[start] = 0
+	visited = set()
+	
+	while len(visited) < numberOfEdges:
+		currentVertex, distanceFromStartToCurrentVertex = getNearestUnvisitedVertex(minDistanceFromStartToEdges, visited)
+		if distanceFromStartToCurrentVertex == float('inf'): break # next nearest vertex is not reachable
+		visited.add(currentVertex)
+		for edge in edges[currentVertex]:
+			neighborVertex, distanceFromCurrentVertexToNeighborVertex = edge
+			if neighborVertex in visited: continue
+			
+			newDistanceFromStartToNeighborVertex = distanceFromStartToCurrentVertex + distanceFromCurrentVertexToNeighborVertex
+			currentDistanceFromStartToNeighborVertex = minDistanceFromStartToEdges[neighborVertex]
+			
+			if newDistanceFromStartToNeighborVertex < currentDistanceFromStartToNeighborVertex:
+				minDistanceFromStartToEdges[neighborVertex] = newDistanceFromStartToNeighborVertex
+	
+	return list(map(lambda x: -1 if x == float('inf') else x, minDistanceFromStartToEdges))
+		
+def getNearestUnvisitedVertex(minDistanceFromStartToEdges, visited):
+	candidateVertex = None
+	candidateVertexDistanceFromStart = float('inf')
+	
+	for vertex, distance in enumerate(minDistanceFromStartToEdges):
+		if vertex in visited: continue
+		if distance <= candidateVertexDistanceFromStart:
+			candidateVertex = vertex
+			candidateVertexDistanceFromStart = distance
+			
+	return [candidateVertexDistanceFromStart, distance]
 
-firstValue = input()  # Type a number at the command prompt and press enter, it will go in here
-secondValue = input() # Same as above line
+distances = [[[1,7]],[[2,6],[3,20],[4,3]],[[3,14]],[[4,2]],[],[]]
+start = 0
 
-# 'int()' attempts to force whatever is in the () to become a number
-# 'secondValue' is subtracted from 'firstValue' (the things you entered on the command line)
-# the result is stored in 'resultValue'
-resultValue = int(firstValue) - int(secondValue) 
-
-# "Result: " is printed to the console
-print("Result: ")
-
-# whatever the value of 'resultValue' is, is printed to the console
-print(resultValue)
+print(dijkstrasAlgorithm(start, distances))
