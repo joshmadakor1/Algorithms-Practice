@@ -6,7 +6,7 @@
     Time: O(N)
     Space: O(1)
 
-    Last Practiced: 2022-03-22 06:04:26
+    Last Practiced: 2022-03-22 06:09:27
 '''
 def shiftedBinarySearch(array, target):
 	return search(array, target, 0, len(array) -1)
