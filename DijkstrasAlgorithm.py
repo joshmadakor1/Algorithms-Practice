@@ -12,38 +12,43 @@
     Time:  
     Space: 
     
-    Last Practiced: 2022-03-21 07:05:24
+    Last Practiced: 2022-03-22 05:51:35
 '''
 def dijkstrasAlgorithm(start, edges):
     numberOfEdges = len(edges)
-    minDistancesFromStart = [float('inf')] * numberOfEdges
-    minDistancesFromStart[start] = 0
+    minDistanceFromStart = [float('inf')] * numberOfEdges
+    minDistanceFromStart[start] = 0
     visited = set()
+    
     while len(visited) < numberOfEdges:
-        currentVertex, distanceFromStartToCurrentVertex = getNearestUnvisitedVertex(minDistancesFromStart, visited)
-        if distanceFromStartToCurrentVertex == float('inf'): break # next nearest vertex is unreachable
+        currentVertex, distanceFromStartToCurrentVertex = getNextClosestUnvisitedNode(minDistanceFromStart, visited)
         visited.add(currentVertex)
         
+        if distanceFromStartToCurrentVertex == float('inf'): break # Closest node is unreachable. Finish algorithm
+        
         for edge in edges[currentVertex]:
-            currentNeighbor, distanceFromCurrentVertexToNeighbor = edge
-            if currentNeighbor in visited: continue
+            currentVertextNeighbor, distanceFromCurrentVertexToNeighbor = edge
+            if currentVertextNeighbor in visited: continue
             
-            newDistanceFromStartToCurrentNeighbor = distanceFromStartToCurrentVertex + distanceFromCurrentVertexToNeighbor
-            currentDistanceFromStartToCurrentNeighbor = minDistancesFromStart[currentNeighbor]
+            newDistanceFromStartToNeighbor = distanceFromStartToCurrentVertex + distanceFromCurrentVertexToNeighbor
+            currentDistanceFromStartToNeighbor = minDistanceFromStart[currentVertextNeighbor]
             
-            if newDistanceFromStartToCurrentNeighbor < currentDistanceFromStartToCurrentNeighbor:
-                minDistancesFromStart[currentNeighbor] = newDistanceFromStartToCurrentNeighbor
-    return list(map(lambda x: -1 if x == float('inf') else x, minDistancesFromStart))
-def getNearestUnvisitedVertex(minDistancesFromStart, visited):
+            if newDistanceFromStartToNeighbor < currentDistanceFromStartToNeighbor:
+                minDistanceFromStart[currentVertextNeighbor] = newDistanceFromStartToNeighbor
+                
+    return list(map(lambda x: -1 if x == float('inf') else x, minDistanceFromStart))
+
+def getNextClosestUnvisitedNode(minDistanceFromStart, visited):
     candidateVertex = None
     candidateDistance = float('inf')
-    for vertex, distance in enumerate(minDistancesFromStart):
+    
+    for vertex, distance in enumerate(minDistanceFromStart):
         if vertex in visited: continue
         if distance <= candidateDistance:
             candidateVertex = vertex
-            candidateDistance = distance
+            candidateDistanxe = distance
             
-    return [candidateVertex, candidateDistance]
+    return candidateVertex, candidateDistance
 
 
 distances = [[[1,7]],[[2,6],[3,20],[4,3]],[[3,14]],[[4,2]],[],[]]
