@@ -6,30 +6,33 @@
     Time: O(3N) -> O(N)
     Space: O(N)
 
-    Last Practiced: 2022-03-21 07:17:45
+    Last Practiced: 2022-03-22 05:38:28
 '''
 def waterArea(heights):
-    largestLeft = [0] * len(heights)
-    largestRight = [0] * len(heights)
+    largestToTheLeft = [0] * len(heights)
+    largestToTheRight = [0] * len(heights)
+    totalArea = 0
     
+    # Calculate largest to the left of each pillar
     largestSoFar = 0
     for i in range(len(heights)):
-        largestLeft [i]= largestSoFar
-        largestSoFar = max(heights[i], largestSoFar)
+        largestToTheLeft[i] = largestSoFar
+        largestSoFar = max(largestSoFar, heights[i])
     
+    # Calculate largest to the right of each pillar
     largestSoFar = 0
     for i in reversed(range(len(heights))):
-        largestRight[i] = largestSoFar
-        largestSoFar = max(heights[i], largestSoFar)
+        largestToTheRight[i] = largestSoFar
+        largestSoFar = max(largestSoFar, heights[i])
         
-    totalArea = 0
-
     for i in range(len(heights)):
-        walls = min(largestLeft[i], largestRight[i])
-        if heights[i] < walls:
-            totalArea += walls - heights[i]
-
+        surroundingPillarHeights = min(largestToTheLeft[i],largestToTheRight[i])
+        if heights[i] < surroundingPillarHeights:
+            totalArea += surroundingPillarHeights - heights[i]
+    
     return totalArea
+            
+
 
     
 waterArea([0, 8, 0, 0, 5, 0, 0, 10, 0, 0, 1, 1, 0, 3])
