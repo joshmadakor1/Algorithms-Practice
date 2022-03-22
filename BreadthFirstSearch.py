@@ -1,13 +1,17 @@
 '''
-	Breadth First Search:
+    Breadth First Search:
     Given a tree as an input, perform a BFS traversal, adding
     each nodes value along the way to an array. Return the array.
 
     Time: O(V+E)
     Space: O(V)
 
-    Last Practiced: 2022-03-11 11:29:45
+    Last Practiced: 2022-03-22 06:24:41
 '''
+# Do not edit the class below except
+# for the breadthFirstSearch method.
+# Feel free to add new properties
+# and methods to the class.
 class Node:
     def __init__(self, name):
         self.children = []
@@ -18,13 +22,13 @@ class Node:
         return self
 
     def breadthFirstSearch(self, array):
-        q = []
-        q.append(self)
+        queue = []
+        queue.append(self)
         
-        while len(q):
-            currentNode = q.pop(0)
+        while len(queue):
+            currentNode = queue.pop(0)
             array.append(currentNode.name)
             for child in currentNode.children:
-                q.append(child)
-                
+                queue.append(child)
+        
         return array
