@@ -14,8 +14,12 @@
     Time: O(N) - Linear
     Space: O(1) - Constant
 
-    Last Practiced: 2022-03-15 07:20:02
+    Last Practiced: 2022-03-23 06:46:51
 '''
+# Do not edit the class below except for the
+# populateSuffixTrieFrom and contains methods.
+# Feel free to add new properties and methods
+# to the class.
 class SuffixTrie:
     def __init__(self, string):
         self.root = {}
@@ -23,15 +27,16 @@ class SuffixTrie:
         self.populateSuffixTrieFrom(string)
 
     def populateSuffixTrieFrom(self, string):
-        for index in range(len(string)):
-            self.insertStringFrom(string, index)
+        for i in range(len(string)):
+            self.insertCharacterAtIndex(i, string)
     
-    def insertStringFrom(self, string, index):
+    def insertCharacterAtIndex(self, index, string):
         currentNode = self.root
-        for i in range(index, len(string)):
-            if string[i] not in currentNode:
-                currentNode[string[i]] = {}
-            currentNode = currentNode[string[i]]
+        for i in range(index,len(string)):
+            currentChar = string[i]
+            if currentChar not in currentNode:
+                currentNode[currentChar] = {}
+            currentNode = currentNode[currentChar]
         currentNode[self.endSymbol] = True
 
     def contains(self, string):
@@ -41,3 +46,4 @@ class SuffixTrie:
                 return False
             currentNode = currentNode[char]
         return self.endSymbol in currentNode
+            
