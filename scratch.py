@@ -1,25 +1,43 @@
-def waterArea(heights):
-    numberOfSlots = len(heights)
-    maxFromLeft = [0] * numberOfSlots
-    maxFromRight = [0] * numberOfSlots
-    totalArea = 0
-
-    currentMaxSoFar = 0
-    for i in range(len(heights)):
-        maxFromLeft[i] = currentMaxSoFar
-        currentMaxSoFar = max(currentMaxSoFar, heights[i])
-    
-    currentMaxSoFar = 0
-    for i in reversed(range(len(heights))):
-        maxFromRight[i] = currentMaxSoFar
-        currentMaxSoFar = max(currentMaxSoFar, heights[i])
-    
-    for i in range(len(heights)):
-        minPillarHeight = min(maxFromLeft[i], maxFromRight[i])
-        if minPillarHeight > heights[i]:
-            totalArea += (minPillarHeight - heights[i])
-    
-    return totalArea
+# This is an input class. Do not edit.
+class AncestralTree:
+    def __init__(self, name):
+        self.name = name
+        self.ancestor = None
 
 
-waterArea([0, 8, 0, 0, 5, 0, 0, 10, 0, 0, 1, 1, 0, 3])
+def getYoungestCommonAncestor(topAncestor, descendantOne, descendantTwo):
+    descendantOneDistanceFromTop = getDistanceFromDescendantToTopAncestor(topAncestor, descendantOne)
+    descendantTwoDistanceFromTop = getDistanceFromDescendantToTopAncestor(topAncestor, descendantTwo)
+    
+    # Bring them to the same level
+    while descendantOneDistanceFromTop != descendantTwoDistanceFromTop:
+        if descendantOneDistanceFromTop > descendantTwoDistanceFromTop:
+            descendantOne = descendantOne.ancestor
+            descendantOneDistanceFromTop -= 1
+        else:
+            descendantTwo = descendantTwo.ancestor
+            descendantTwoDistanceFromTop -= 1
+    
+    # If they were in the same branch:
+    if descendantOne == descendantTwo:
+        return descendantOne
+    
+    # Keep climbing until they have the same ancestor or until they are the same
+    while descendantOne is not None:
+        if descendantOne.ancestor == descendantTwo.ancestor:
+            return descendantOne.ancestor
+        descendantOne = descendantOne.ancestor
+        descendantTwo = descendantTwo.ancestor
+        
+    return None # This means there is no common ancestor. Impossible to happen
+            
+    
+
+def getDistanceFromDescendantToTopAncestor(topAncestor, descendant):
+    distance = 0
+    while descendant != topAncestor:
+        distance += 1
+        descendant = descendant.ancestor
+    return distance
+
+    
