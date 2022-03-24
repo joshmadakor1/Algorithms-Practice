@@ -61,3 +61,6 @@ class MinHeap:
         
     def swap(self, heap, left, right):
         heap[left], heap[right] = heap[right], heap[left]
+
+myHeap = MinHeap([48, 12, 24, 7, 8, -5, 24, 391, 24, 56, 2, 6, 8, 41])
+print(myHeap.heap)
