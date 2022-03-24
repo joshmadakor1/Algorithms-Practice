@@ -1,32 +1,25 @@
-def dijkstrasAlgorithm(edges, start):
-    numberOfVertices = len(edges)
-    minDistanceFromStart = [float('inf')] * numberOfVertices
-    minDistanceFromStart[start] = 0
-    visited = set()
+def waterArea(heights):
+    numberOfSlots = len(heights)
+    maxFromLeft = [0] * numberOfSlots
+    maxFromRight = [0] * numberOfSlots
+    totalArea = 0
 
-    while len(visited) < numberOfVertices:
-        currentVertex, currentVertextDistanceFromStart = getNextNearestUnvisitedVertex(minDistanceFromStart, visited)
-        if currentVertextDistanceFromStart == float('inf'): break # next nearest node is not reachable
-        visited.add(currentVertex)
-        for edge in edges[currentVertex]:
-            neighborVertex, distanceFromCurrentVertextToNeighbor = edge
-            if neighborVertex in visited: continue
-
-            newDistanceFromStartToNeighbor = currentVertextDistanceFromStart + distanceFromCurrentVertextToNeighbor
-            currentDistanceFromStartToNeighbor = minDistanceFromStart[neighborVertex]
-
-            if newDistanceFromStartToNeighbor < currentDistanceFromStartToNeighbor:
-                minDistanceFromStart[neighborVertex] = newDistanceFromStartToNeighbor
-    return list(map(lambda x: -1 if x == float('inf') else x, minDistanceFromStart))
-
-def getNextNearestUnvisitedVertex(minDistanceFromStart, visited):
-    candidateVertex = None
-    distanceFromStart = float('inf')
+    currentMaxSoFar = 0
+    for i in range(len(heights)):
+        maxFromLeft[i] = currentMaxSoFar
+        currentMaxSoFar = max(currentMaxSoFar, heights[i])
     
-    for vertex, distance in enumerate(minDistanceFromStart):
-        if vertex in visited: continue
-        if distance <= distanceFromStart:
-            candidateVertex = vertex
-            distanceFromStart = distance
+    currentMaxSoFar = 0
+    for i in reversed(range(len(heights))):
+        maxFromRight[i] = currentMaxSoFar
+        currentMaxSoFar = max(currentMaxSoFar, heights[i])
+    
+    for i in range(len(heights)):
+        minPillarHeight = min(maxFromLeft[i], maxFromRight[i])
+        if minPillarHeight > heights[i]:
+            totalArea += (minPillarHeight - heights[i])
+    
+    return totalArea
 
-    return candidateVertex, distanceFromStart
+
+waterArea([0, 8, 0, 0, 5, 0, 0, 10, 0, 0, 1, 1, 0, 3])

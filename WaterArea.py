@@ -6,7 +6,7 @@
     Time: O(3N) -> O(N)
     Space: O(N)
 
-    Last Practiced: 2022-03-22 05:38:28
+    Last Practiced: 2022-03-24 08:36:14
 '''
 def waterArea(heights):
     largestToTheLeft = [0] * len(heights)
