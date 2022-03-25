@@ -14,18 +14,19 @@
     Time:  O(width * height) => O(N), where N is the number of elements in the matrix
     Space: O(width * height) => O(N), where N is the number of elements in the matrix (aux matrix)
 
-    Last Practiced: 2022-03-18 06:34:46
+    Last Practiced: 2022-03-25 05:39:38
 '''
 def riverSizes(matrix):
-    sizes = []
     visited = [[False for value in row] for row in matrix]
+    sizes = []
+    
     for row in range(len(matrix)):
         for col in range(len(matrix[row])):
             if not visited[row][col]:
-                traverseRiver(row, col, matrix, visited, sizes)
+                traversRiver(matrix, row, col, visited, sizes)
     return sizes
 
-def traverseRiver(row, col, matrix, visited, sizes):
+def traversRiver(matrix, row, col, visited, sizes):
     currentRiverSize = 0
     nodesToVisit = [[row,col]]
     while len(nodesToVisit):
@@ -38,22 +39,20 @@ def traverseRiver(row, col, matrix, visited, sizes):
         if matrix[currentRow][currentCol] == 0:
             continue
         currentRiverSize += 1
-        neighbors = getNeighbors(currentRow, currentCol, matrix, visited)
+        neighbors = getNeighboringNodes(matrix, currentRow, currentCol, visited)
         for neighbor in neighbors:
             nodesToVisit.append(neighbor)
     if currentRiverSize > 0:
         sizes.append(currentRiverSize)
 
-def getNeighbors(row, col, matrix, visited):
+def getNeighboringNodes(matrix, row, col, visited):
     neighbors = []
-    
     if row > 0 and not visited[row-1][col]:
-        neighbors.append([row-1,col])
+        neighbors.append([row-1, col])
     if row < len(matrix) - 1 and not visited[row+1][col]:
-        neighbors.append([row+1,col])
+        neighbors.append([row+1, col])
     if col > 0 and not visited[row][col-1]:
-        neighbors.append([row,col-1])
-    if col < len(matrix[row]) - 1 and not visited[row][col+1]:
-        neighbors.append([row,col+1])
-    
+        neighbors.append([row, col-1])
+    if col < len(matrix[row])-1 and not visited[row][col+1]:
+        neighbors.append([row, col+1])
     return neighbors
