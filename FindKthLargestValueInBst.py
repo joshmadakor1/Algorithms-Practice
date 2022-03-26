@@ -1,12 +1,13 @@
 '''
-	Find Kth Largest Value in BST:
+    Find Kth Largest Value in BST:
     Given a binary search tree, return the Kth largest value
 
     Time: O(N), where N is the number of nodes in the tree
     Space: O(N), where N is the number of nodes in the tree
 
-    Last Practiced: 2022-03-11 11:38:12
+    Last Practiced: 2022-03-26 07:58:48
 '''
+# This is an input class. Do not edit.
 class BST:
     def __init__(self, value, left=None, right=None):
         self.value = value
@@ -15,13 +16,13 @@ class BST:
 
 
 def findKthLargestValueInBst(tree, k):
-    bstNodeValuesInOrder = []
-    inOrderTraversal(tree, bstNodeValuesInOrder)
-    return bstNodeValuesInOrder[len(bstNodeValuesInOrder) - k]
+    inOrderTraversalValues = []
+    search(tree, inOrderTraversalValues)
+    return inOrderTraversalValues[len(inOrderTraversalValues) - k]
 
-def inOrderTraversal(tree, bstNodeValuesInOrder):
+def search(tree, array):
     if tree is None:
         return
-    inOrderTraversal(tree.left, bstNodeValuesInOrder)
-    bstNodeValuesInOrder.append(tree.value)
-    inOrderTraversal(tree.right, bstNodeValuesInOrder)
+    search(tree.left, array)
+    array.append(tree.value)
+    search(tree.right, array)
