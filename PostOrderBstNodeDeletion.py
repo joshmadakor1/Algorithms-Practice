@@ -1,3 +1,13 @@
+'''
+    Post Order BST Node Deletion
+    Delete all nodes from a BST in O(N) time and print out nodes that were deleted
+
+    Time: O(N)
+    Space: O(D), where D is the depth of the BST
+
+    Last Practiced: 2022-03-27 06:13:52s
+'''
+
 class BST:
     def __init__(self, value, left=None, right=None):
         self.value = value
