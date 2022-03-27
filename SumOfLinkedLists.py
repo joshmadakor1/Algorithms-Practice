@@ -16,7 +16,6 @@ class LinkedList:
         self.value = value
         self.next = None
 
-
 def sumOfLinkedLists(linkedListOne, linkedListTwo):
 	number1 = []
 	number2 = []
