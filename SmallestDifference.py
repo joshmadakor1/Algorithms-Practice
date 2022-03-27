@@ -6,26 +6,33 @@
 
     Time:  O(nlog(n) + mlog(m)) where n and m are the lengths of the arrays
     Space: O(1)
+
+    Last Practiced: 2022-03-27 05:58:38
 '''
 def smallestDifference(arrayOne, arrayTwo):
     arrayOne.sort()
     arrayTwo.sort()
+    
     pointerOne = 0
     pointerTwo = 0
-    currentSmallest = float("inf")
-    answer = []
-    candidate = 0
+    
+    currentSmallestDiff = abs(arrayOne[0] - arrayTwo[0])
+    currentSmallsetPair = [arrayOne[0], arrayTwo[0]]
     
     while pointerOne < len(arrayOne) and pointerTwo < len(arrayTwo):
-        candidate = abs(arrayOne[pointerOne] - arrayTwo[pointerTwo])
-        if candidate < currentSmallest:
-            currentSmallest = candidate
-            answer = [arrayOne[pointerOne], arrayTwo[pointerTwo]]
+        
+        candidateSmallestDiff = abs(arrayOne[pointerOne] - arrayTwo[pointerTwo])
+        
+        if candidateSmallestDiff == 0:
+            return [arrayOne[pointerOne], arrayTwo[pointerTwo]]
+        
+        elif candidateSmallestDiff < currentSmallestDiff:
+            currentSmallestDiff = candidateSmallestDiff
+            currentSmallsetPair = [arrayOne[pointerOne], arrayTwo[pointerTwo]]
+        
         if arrayOne[pointerOne] < arrayTwo[pointerTwo]:
             pointerOne += 1
-        elif arrayTwo[pointerTwo] < arrayOne[pointerOne]:
-            pointerTwo += 1
         else:
-            break
+            pointerTwo += 1
             
-    return answer
+    return currentSmallsetPair
