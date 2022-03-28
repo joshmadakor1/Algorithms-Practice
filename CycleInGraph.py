@@ -10,22 +10,25 @@
 '''
 def cycleInGraph(edges):
     visited = [False] * len(edges)
-    stack = [False] * len(edges)
-    
+    inStack = [False] * len(edges)
     for vertex in range(len(edges)):
         if visited[vertex]: continue
-        if vertexIsInCycle(vertex, visited, stack, edges): return True
+        if isInCycle(vertex, edges, visited, inStack):
+            return True
     return False
-        
-def vertexIsInCycle(vertex, visited, stack, edges):
+
+def isInCycle(vertex, edges, visited, inStack):
     visited[vertex] = True
-    stack[vertex] = True
+    inStack[vertex] = True
     neighbors = edges[vertex]
     for neighbor in neighbors:
-        if visited[neighbor] and stack[neighbor]: return True
-        if vertexIsInCycle(neighbor, visited, stack, edges): return True
-    stack[vertex] = False
+        if visited[neighbor] and inStack[neighbor]:
+            return True # Cycle was found
+        if isInCycle(neighbor, edges, visited, inStack):
+            return True
+    inStack[vertex] = False
     return False
+
 
 
 

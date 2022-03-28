@@ -5,7 +5,7 @@
     Time: O(N)
     Space: O(D), where D is the depth of the BST
 
-    Last Practiced: 2022-03-27 06:13:52s
+    Last Practiced: 2022-03-28 08:18:13
 '''
 
 class BST:
@@ -44,7 +44,6 @@ root.right = BST(15)
 root.right.left = BST(13)
 root.right.left.right = BST(14)
 root.right.right = BST(22)
-
 
 deletedNodes = []
 deleteNodesAndReturnOrder(root, deletedNodes)
