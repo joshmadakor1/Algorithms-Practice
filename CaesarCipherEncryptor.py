@@ -3,8 +3,8 @@
     Given a string and a key to serve as an offset, encrypt the
     string with a Caesar Cipher and return the new ciphertext.
 
-    Time:  O(N), where N = number of characters in the string
-    Space: O(1)
+    Time:  O(N), where N = number of characters in the input string
+    Space: O(N), where N = number of characters in the input string
     
     Last Practice: 2022-03-13 09:05:49
 '''
